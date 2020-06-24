@@ -1,4 +1,4 @@
-# Jenkins deploy the App on Kubernetes
+# Automatically Jenkins deploy the App on Kubernetes
 
 ## Agenda of Project
 Create a job chain by using build pipeline plugin in jenkins that deploy the app on the kubernetes where we use Kubernetes resources like Pods, ReplicaSet, Deployment, PVC and Service.
