@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysvc
+  labels:
+    app: web
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 30000
+    port: 80
+    targetPort: 80
+  selector:
+    app: web
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: phpvol
+  labels:
+    app: web
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deploy
+  labels:
+    app: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: phpserver
+        name: php
+        volumeMounts:
+        - name: web-vol1
+          mountPath: /var/www/html
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: web-vol1
+        persistentVolumeClaim:
+          claimName: phpvol    
+       
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
