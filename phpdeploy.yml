@@ -47,7 +47,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: phpserver
+      - image: phpserver:p1
         name: php
         volumeMounts:
         - name: web-vol1
